@@ -1,0 +1,10 @@
+:root {
+    color-scheme: dark;
+    user-select: none;
+}
+
+canvas {
+    pointer-events: none;
+    position: fixed;
+    inset: 0;
+}
