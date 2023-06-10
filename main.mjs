@@ -27,7 +27,7 @@ addEventListener('wheel', e => {
     e.preventDefault();
     if (e.ctrlKey) cf.addAngle(.1 * Math.sign(e.deltaY));
     else cf.addRadius(10 * Math.sign(e.deltaY));
-});
+}, {passive: false});
 
 
 const animate = time => {
