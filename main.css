@@ -1,10 +1,16 @@
 :root {
     color-scheme: dark;
     user-select: none;
+    font: 10px/1 Monaco, monospace;
+    color: #9b9b9b;
 }
 
 canvas {
     pointer-events: none;
     position: fixed;
     inset: 0;
+}
+
+b {
+    color: #29c769;
 }
