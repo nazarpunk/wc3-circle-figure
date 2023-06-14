@@ -119,6 +119,12 @@ function CircleFigure:update()
     end
 end
 
+function CircleFigure:destroy()
+    while #self.data.edges > 0 do
+        table.remove(self.data.edges):destroy()
+    end
+end
+
 local c = CircleFigure:new(10, 20, 50, 11, 1);
 c.x = 10;
 c.x = c.x + 10;
