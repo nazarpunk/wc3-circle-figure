@@ -1,14 +1,3 @@
--- [[ REMOVE THIS ]]--
-function AddLightning (codeName, checkVisibility, x1, y1, x2, y2)
-    return {}
-end
-function DestroyLightning (whichBolt)
-end
-function MoveLightning (whichBolt, checkVisibility, x1, y1, x2, y2)
-end
--- [[ END REMOVE THIS ]]--
-
-
 local function normalize (angle)
     return (angle % (2 * math.pi) + 2 * math.pi) % (2 * math.pi);
 end
@@ -38,6 +27,8 @@ function CircleFigureEdge:position(xa, ya, xb, yb)
     self.xa, self.ya, self.xb, self.yb = xa, ya, xb, yb
     MoveLightning(self.lightning, xa, ya, xb, yb)
 end
+
+--BlzSetSpecialEffectAlpha()
 
 function CircleFigureEdge:destroy()
     DestroyLightning(self.lightning)
@@ -127,10 +118,3 @@ function CircleFigure:destroy()
         table.remove(self.data.edges):destroy()
     end
 end
-
-local c = CircleFigure:new(10, 20, 50, 11, 1);
-c.x = 10;
-c.x = c.x + 10;
-c.count = 4;
-c.count = 2;
-
