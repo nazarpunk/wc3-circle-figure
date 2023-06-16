@@ -19,9 +19,10 @@ CircleFigureEdge = {}
 ---@param ya number
 ---@param xb number
 ---@param yb number
-function CircleFigureEdge:new(xa, ya, xb, yb)
+---@param codeName string
+function CircleFigureEdge:new(xa, ya, xb, yb, codeName)
     local t = {
-        lightning = AddLightning("DRAL", false, xa, ya, xb, yb)
+        lightning = AddLightning(codeName, false, xa, ya, xb, yb)
     }
     setmetatable(t, self)
     self.__index = self
@@ -50,10 +51,11 @@ CircleFigure = {}
 ---@param radius number
 ---@param angle number
 ---@param count number
-function CircleFigure:new(x, y, radius, angle, count)
+function CircleFigure:new(x, y, radius, angle, count, codeName)
     local t = {
         data = {},
-        edges = {}
+        edges = {},
+        codeName = codeName,
     };
     setmetatable(t, {
         __index = function(self, key)
@@ -111,7 +113,7 @@ function CircleFigure:update()
         xb = d.x + d.radius * math.cos(a);
         yb = d.y + d.radius * math.sin(a);
         if #self.edges < i then
-            table.insert(self.edges, CircleFigureEdge:new(xa, ya, xb, yb))
+            table.insert(self.edges, CircleFigureEdge:new(xa, ya, xb, yb, self.codeName))
         else
             self.edges[i]:position(xa, ya, xb, yb)
         end
