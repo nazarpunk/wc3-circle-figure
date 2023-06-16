@@ -51,6 +51,7 @@ CircleFigure = {}
 ---@param radius number
 ---@param angle number
 ---@param count number
+---@param codeName string
 function CircleFigure:new(x, y, radius, angle, count, codeName)
     local t = {
         data = {},
