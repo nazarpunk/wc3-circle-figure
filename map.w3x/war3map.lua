@@ -1,3 +1,8 @@
+gg_trg_demo = nil
+gg_unit_Hamg_0000 = nil
+function InitGlobals()
+end
+
 local InitGlobalsCirclefigure = InitGlobals;
 
 function InitGlobals()
@@ -131,3 +136,101 @@ function InitGlobals()
     end
 
 end
+local InitGlobalsTest = InitGlobals;
+
+function InitGlobals()
+    InitGlobalsTest();
+    local trigger = CreateTrigger()
+    for i = 0, bj_MAX_PLAYER_SLOTS - 1, 1 do
+        TriggerRegisterPlayerUnitEvent(trigger, Player(i), EVENT_PLAYER_UNIT_SPELL_EFFECT)
+    end
+    TriggerAddAction(trigger, function()
+        local x, y = GetSpellTargetX(), GetSpellTargetY();
+
+        local c = CircleFigure:new(x,y, 400, 0, GetRandomInt(3,7), 'DRAL');
+        TimerStart(CreateTimer(), 5, false, function()
+            DestroyTimer(GetExpiredTimer());
+            c:destroy();
+        end)
+
+    end)
+end
+
+function CreateUnitsForPlayer0()
+local p = Player(0)
+local u
+local unitID
+local t
+local life
+
+gg_unit_Hamg_0000 = BlzCreateUnitWithSkin(p, FourCC("Hamg"), -413.5, -367.9, 268.410, FourCC("Hjas"))
+SelectHeroSkill(gg_unit_Hamg_0000, FourCC("AHbz"))
+end
+
+function CreatePlayerBuildings()
+end
+
+function CreatePlayerUnits()
+CreateUnitsForPlayer0()
+end
+
+function CreateAllUnits()
+CreatePlayerBuildings()
+CreatePlayerUnits()
+end
+
+function Trig_demo_Actions()
+SelectUnitSingle(gg_unit_Hamg_0000)
+end
+
+function InitTrig_demo()
+gg_trg_demo = CreateTrigger()
+TriggerAddAction(gg_trg_demo, Trig_demo_Actions)
+end
+
+function InitCustomTriggers()
+InitTrig_demo()
+end
+
+function RunInitializationTriggers()
+ConditionalTriggerExecute(gg_trg_demo)
+end
+
+function InitCustomPlayerSlots()
+SetPlayerStartLocation(Player(0), 0)
+SetPlayerColor(Player(0), ConvertPlayerColor(0))
+SetPlayerRacePreference(Player(0), RACE_PREF_HUMAN)
+SetPlayerRaceSelectable(Player(0), true)
+SetPlayerController(Player(0), MAP_CONTROL_USER)
+end
+
+function InitCustomTeams()
+SetPlayerTeam(Player(0), 0)
+end
+
+function main()
+SetCameraBounds(-3328.0 + GetCameraMargin(CAMERA_MARGIN_LEFT), -3584.0 + GetCameraMargin(CAMERA_MARGIN_BOTTOM), 3328.0 - GetCameraMargin(CAMERA_MARGIN_RIGHT), 3072.0 - GetCameraMargin(CAMERA_MARGIN_TOP), -3328.0 + GetCameraMargin(CAMERA_MARGIN_LEFT), 3072.0 - GetCameraMargin(CAMERA_MARGIN_TOP), 3328.0 - GetCameraMargin(CAMERA_MARGIN_RIGHT), -3584.0 + GetCameraMargin(CAMERA_MARGIN_BOTTOM))
+SetDayNightModels("Environment\\DNC\\DNCUnderground\\DNCUndergroundTerrain\\DNCUndergroundTerrain.mdl", "Environment\\DNC\\DNCUnderground\\DNCUndergroundUnit\\DNCUndergroundUnit.mdl")
+NewSoundEnvironment("Default")
+SetAmbientDaySound("DungeonDay")
+SetAmbientNightSound("DungeonNight")
+SetMapMusic("Music", true, 0)
+CreateAllUnits()
+InitBlizzard()
+InitGlobals()
+InitCustomTriggers()
+RunInitializationTriggers()
+end
+
+function config()
+SetMapName("TRIGSTR_003")
+SetMapDescription("TRIGSTR_005")
+SetPlayers(1)
+SetTeams(1)
+SetGamePlacement(MAP_PLACEMENT_USE_MAP_SETTINGS)
+DefineStartLocation(0, -384.0, -448.0)
+InitCustomPlayerSlots()
+SetPlayerSlotAvailable(Player(0), MAP_CONTROL_USER)
+InitGenericPlayerSlots()
+end
+
